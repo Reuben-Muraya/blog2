@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Post extends Model
 {
+    protected $dates = ['published_at'];
 
     public function author()
     {
@@ -28,6 +30,11 @@ class Post extends Model
 
     public function getDateAttribute($value)
     {
-        return $this->created_at->diffForHumans();
+        return is_null($this->published_at) ? '' : $this->published_at->diffForHumans();
+    }
+
+    public function scopePublished()
+    {
+        return $this->where("published_at","<=", Carbon::now());
     }
 }
