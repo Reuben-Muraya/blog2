@@ -21,6 +21,11 @@ Route::get('/blog/{post}', [
 	'as' => 'blog.show'
 ]);
 
+Route::get('/category/{category}', [
+	'uses' => 'BlogController@category',
+	'as' => 'category'
+]);
+
 // Route::bind('post', function($slug) {
 // 	return Post::published()->where('slug', $slug)->first();
 // });
